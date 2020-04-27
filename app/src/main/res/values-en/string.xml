@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="app_name">SQLiteEditor</string>
+    <string name="openDrawerContentDescRes">Open</string>
+    <string name="closeDrawerContentDescRes">Close</string>
+
+    <string name="describe">
+        Version:%version
+        \nAuth:短毛猫
+        \nE-mail:66492422@qq.com
+        \nBlog:http://blog.dmmy.xyz
+        \nIf you find any problems or Suggestions, please send email to the author for feedback
+        \nThe developer of this software shall not be responsible for any loss caused by the user\'s improper operation
+    </string>
+
+    <string name="open_database">Open Database</string>
+    <string name="close_database">Close Database</string>
+    <string name="new_create_database">Create Database</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="delete">Delete</string>
+    <string name="database_tables">Table</string>
+    <string name="database_view">View</string>
+    <string name="exec_sql">ExecSQL</string>
+    <string name="unopened_database_tip">You did not open the database</string>
+    <string name="tables_is_null">The database table you open is empty</string>
+    <string name="unrealized">unrealized</string>
+
+    <string name="please_enter_sql">
+        Please enter an SQL statement
+        \n\nexecutes non-query SQL statements here
+        \n\nswipe quickly from left to right, press the back button, or click the back button on the ToolBar to return to the previous interface
+        \n\nreturns to the previous interface and re-enters it, leaving the Sql statement
+    </string>
+
+    <string name="please_enter_query_sql">
+        Please enter an SQL statement
+        \n\nexecutes the query SQL statement here
+        \n\nswipe quickly from left to right, press the back button, or click the back button on the ToolBar to return to the previous interface
+        \n\nreturns to the previous interface and re-enters it, leaving the Sql statement
+    </string>
+
+    <string-array name="tables_operation">
+        <item>Edit</item>
+        <item>Check Structure</item>
+        <item>Delete</item>
+        <item>Empty</item>
+        <item>Cancel</item>
+    </string-array>
+
+    <string-array name="views_operation">
+        <item>Check View</item>
+        <item>Delete</item>
+        <item>View Structure</item>
+        <item>Cancel</item>
+    </string-array>
+
+    <string-array name="edit_table_data">
+        <item>Edit</item>
+        <item>Delete</item>
+        <item>Cancel</item>
+    </string-array>
+
+    <string name="warning">Warning</string>
+    <string name="delete_table_warning">You are about to delete table \'%table_name\', please confirm</string>
+    <string name="delete_view_warning">You are about to delete \'%view_name\' view, please confirm</string>
+    <string name="clear_table_data_warning">You are about to empty \'%table_name\' table, please confirm</string>
+    <string name="exec_success">Execute successfully</string>
+    <string name="exec_complete">Completes</string>
+    <string name="copy">Copy</string>
+
+    <string name="delete_row_warning">You are about to delete the data in row %row_id, please confirm!</string>
+
+    <string name="file_creation_failed_1">Failed to create, filename duplicate or not entered!</string>
+    <string name="file_creation_failed_2">File creation failed!</string>
+    <string name="file_creation_failed_3">Failed to create, exception: %e</string>
+    <string name="file_creation_success">Create successful</string>
+
+    <string name="please_select_database">Please select the database</string>
+    <string name="blocking_access">You do not have permission to access this directory</string>
+
+    <string name="click_the_blue_button_on_the_right_to_execute">Click the blue button on the right to execute</string>
+    <string name="total_number">Number</string>
+
+    <string name="query_sql">Query</string>
+    <string name="query_complete">Query to complete</string>
+
+    <string name="select_column">Select field</string>
+
+    <string name="views_is_null">There is no view</string>
+
+    <string name="field_name">Field names</string>
+    <string name="field_struct">Field structure</string>
+    <string name="field_struct_tip">Case:INTEGER PRIMARY KEY AUTOINCREMENT</string>
+
+    <string name="field_name_repetition">Field name repetition</string>
+
+    <string name="table_name">TableName</string>
+    <string name="table_name_tip">Please enter the name of the table</string>
+    <string name="create_table_success">Table created successfully</string>
+
+    <string name="please_enter_view_name">Please enter a view name</string>
+    <string name="please_enter_view_sql">Enter the view statement</string>
+    <string name="create_view_success">View created successfully</string>
+
+    <string name="add_new_row">Add a new row</string>
+    <string name="edit_field">Edit field</string>
+    <string name="add_field">Add fields</string>
+
+    <string name="table">Table</string>
+    <string name="view">View</string>
+
+    <string name="save_in">Save in</string>
+
+    <string name="file_name_">FileName:</string>
+
+    <string name="copy_success">Copy successfully</string>
+
+    <string name="whether_to_open_a_new_database">Open the newly created database immediately?</string>
+
+    <string name="query_sql_loading">Loading data·····</string>
+
+    <string name="refresh_data">Refresh data</string>
+
+    <string name="bulk_import">Bulk import</string>
+
+    <string name="bulk_import_tip">At the top, select the table you want to import\n\nEach row of imported data is distinguished by a newline, and each column is distinguished by a custom delimiter</string>
+
+    <string name="bulk_import_fail">Batch import failed</string>
+
+    <string name="bulk_import_success">Successfully imported %count% row data</string>
+
+    <string name="bulk_import_separator">Separator</string>
+
+    <string name="select_row_tips">Select row %row%</string>
+</resources>

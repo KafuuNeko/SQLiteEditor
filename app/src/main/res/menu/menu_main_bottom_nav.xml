@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/navTable" android:title="@string/database_tables" android:icon="@drawable/ic_table"></item>
+    <item android:id="@+id/navView" android:title="@string/database_view" android:icon="@drawable/ic_operation"></item>
+
+</menu>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/openOrClose" android:icon="@drawable/ic_database" android:title="@string/open_database"></item>
+    <item android:id="@+id/createDatabase" android:icon="@drawable/ic_new_create" android:title="@string/new_create_database"></item>
+    <item android:id="@+id/execSql" android:icon="@drawable/ic_sql" android:title="@string/exec_sql"></item>
+    <item android:id="@+id/querySql" android:icon="@drawable/ic_sql" android:title="@string/query_sql"></item>
+    <item android:id="@+id/bulkImport" android:icon="@drawable/ic_import" android:title="@string/bulk_import"></item>
+    <item android:id="@+id/refreshData" android:icon="@drawable/ic_refresh" android:title="@string/refresh_data"></item>
+
+</menu>

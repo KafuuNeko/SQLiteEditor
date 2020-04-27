@@ -1,0 +1,137 @@
+<resources >
+
+    <string name="app_name">SQLite编辑器</string>
+    <string name="openDrawerContentDescRes">打开抽屉</string>
+    <string name="closeDrawerContentDescRes">打开抽屉</string>
+
+    <string name="describe">
+        Version:%version
+        \nAuth:短毛猫
+        \nE-mail:66492422@qq.com
+        \nBlog:http://blog.dmmy.xyz
+        \n若在使用中发现问题或有建议，请发送邮件或添加作者QQ反馈。
+        \n本软件的开发者不对用户操作不当造成的任何损失负责
+    </string>
+
+    <string name="open_database">打开数据库</string>
+    <string name="close_database">关闭数据库</string>
+    <string name="new_create_database">新建数据库</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
+    <string name="delete">删除</string>
+    <string name="database_tables">表</string>
+    <string name="database_view">视图</string>
+    <string name="exec_sql">执行SQL</string>
+    <string name="unopened_database_tip">您还未打开数据库</string>
+    <string name="tables_is_null">您打开的数据库表为空</string>
+    <string name="unrealized">功能待开发</string>
+
+    <string name="please_enter_sql">
+        请输入SQL语句
+        \n\n可在此处执行非查询SQL语句
+        \n\n从左快速向右滑动、按返回键或点击ToolBar上的返回按钮可返回到上一个界面
+        \n\n返回上一个界面后重新进入此界面，将保留Sql语句
+    </string>
+
+    <string name="please_enter_query_sql">
+        请输入SQL语句
+        \n\n可在此处执行查询SQL语句
+        \n\n从左快速向右滑动、按返回键或点击ToolBar上的返回按钮可返回到上一个界面
+        \n\n返回上一个界面后重新进入此界面，将保留Sql语句
+    </string>
+
+    <string-array name="tables_operation">
+        <item>编辑数据</item>
+        <item>查看结构</item>
+        <item>删除此表</item>
+        <item>清空数据</item>
+        <item>取消操作</item>
+    </string-array>
+
+    <string-array name="views_operation">
+        <item>查看视图</item>
+        <item>删除视图</item>
+        <item>视图结构</item>
+        <item>取消操作</item>
+    </string-array>
+
+    <string-array name="edit_table_data">
+        <item>编辑数据</item>
+        <item>删除此行</item>
+        <item>取消操作</item>
+    </string-array>
+
+    <string name="warning">警告</string>
+    <string name="delete_table_warning">您即将删除\'%table_name\'表，请确认！</string>
+    <string name="delete_view_warning">您即将删除\'%view_name\'视图，请确认！</string>
+    <string name="clear_table_data_warning">您即将清空\'%table_name\'表的内容，请确认！</string>
+    <string name="exec_success">执行成功</string>
+    <string name="exec_complete">执行完成</string>
+    <string name="copy">复制</string>
+
+    <string name="delete_row_warning">您即将删除第%row_id行的数据，请确认！</string>
+
+    <string name="file_creation_failed_1">创建失败，文件名重复或未输入！</string>
+    <string name="file_creation_failed_2">文件创建失败！</string>
+    <string name="file_creation_failed_3">创建失败，异常：%e</string>
+    <string name="file_creation_success">创建成功</string>
+
+    <string name="please_select_database">请选择数据库</string>
+    <string name="blocking_access">您没有权限访问此目录</string>
+
+    <string name="click_the_blue_button_on_the_right_to_execute">点击右边蓝色按钮执行</string>
+    <string name="total_number">总数</string>
+
+    <string name="query_sql">查询语句</string>
+    <string name="query_complete">查询完成</string>
+
+    <string name="select_column">选择字段</string>
+
+    <string name="views_is_null">没有视图</string>
+
+    <string name="field_name">字段名称</string>
+    <string name="field_struct">字段结构</string>
+    <string name="field_struct_tip">例:INTEGER PRIMARY KEY AUTOINCREMENT</string>
+
+    <string name="field_name_repetition">字段名重复</string>
+
+    <string name="table_name">表名称</string>
+    <string name="table_name_tip">请输入表名称</string>
+    <string name="create_table_success">表创建成功</string>
+
+    <string name="please_enter_view_name">请输入视图名称</string>
+    <string name="please_enter_view_sql">请输入视图语句</string>
+    <string name="create_view_success">视图创建成功</string>
+
+    <string name="add_new_row">添加新行</string>
+    <string name="edit_field">编辑字段</string>
+    <string name="add_field">添加字段</string>
+
+    <string name="table">表</string>
+    <string name="view">视图</string>
+
+    <string name="save_in">保存在</string>
+
+    <string name="file_name_">文件名：</string>
+
+    <string name="copy_success">复制成功</string>
+    
+    <string name="whether_to_open_a_new_database">是否立即打开新创建的数据库？</string>
+
+    <string name="query_sql_loading">正在加载数据·····</string>
+
+    <string name="refresh_data">刷新数据</string>
+
+    <string name="bulk_import">批量导入</string>
+
+    <string name="bulk_import_tip">在上方选择您要导入的表\n\n导入数据每行以换行区分，每列自定义分隔符区分</string>
+
+    <string name="bulk_import_fail">批量导入失败</string>
+
+    <string name="bulk_import_success">成功导入%count%行数据</string>
+
+    <string name="bulk_import_separator">分隔符</string>
+
+    <string name="select_row_tips">选中第%row%行</string>
+
+</resources>
