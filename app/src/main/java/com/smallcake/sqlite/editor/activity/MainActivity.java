@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.SQLException;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -44,8 +46,11 @@ import com.smallcake.sqlite.editor.util.FileOperation;
 import com.smallcake.sqlite.editor.util.UApplication;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
     private static final int CheckPermissionRequestCode_Associated = 0x1;
@@ -53,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int CheckPermissionRequestCode_CreateDatabase = 0x3;
     private static final int CheckPermissionRequestCode_BulkImport = 0x4;
 
+    private Handler mHandle;
     private String mFilePath = null;
 
     private DrawerLayout mDrawer;
@@ -70,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mHandle = new Handler();
 
         findView();
         initView();
@@ -505,6 +513,7 @@ public class MainActivity extends AppCompatActivity {
                 .setItems(item_list, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        final String table = tables.get(which);
                         final EditText et_separator = new EditText(MainActivity.this);
                         et_separator.setText(BatchImportActivity.SEPARATOR);
 
@@ -515,7 +524,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         BatchImportActivity.SEPARATOR = et_separator.getText().toString();
-                                        bulkImportFile(tables.get(which), BatchImportActivity.SEPARATOR);
+                                        bulkImportFile(table, BatchImportActivity.SEPARATOR);
                                     }
                                 })
                                 .setPositiveButton(R.string.cancel, null)
@@ -534,20 +543,93 @@ public class MainActivity extends AppCompatActivity {
                 .setSelectorMode(FileSelectorDialog.Builder.MODE_OPEN_FILE)
                 .setFileSelectorListener(new FileSelectorDialog.FileSelectorListener() {
                     @Override
-                    public void SelectComplete(File file) {
+                    public void SelectComplete(final File file) {
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_load,  null);
+                        final AlertDialog loadDialog = new AlertDialog.Builder(MainActivity.this)
+                                .setView(view)
+                                .setCancelable(false)
+                                .create();
+
+                        loadDialog.show();
+
+                        final TextView tvLoadTips = view.findViewById(R.id.tvLoadTips);
+
+
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_load,  null);
-                                AlertDialog loadDialog = new AlertDialog.Builder(MainActivity.this)
-                                        .setView(view)
-                                        .setCancelable(false)
-                                        .create();
-                                loadDialog.show();
+                                int count = 0;
+                                FileInputStream fis = null;
 
-                                loadDialog.cancel();
-                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                try {
+                                    OpenDatabase.DataBase.beginTransaction();
+
+                                    fis = new FileInputStream(file);
+
+                                    Scanner scanner = new Scanner(fis);
+                                    while (scanner.hasNext())
+                                    {
+                                        String line = scanner.nextLine();
+
+                                        String[] cols = line.split(separator);
+
+                                        String values_part = null;
+                                        for (int i = 0; i < cols.length; ++i) {
+                                            values_part = (values_part == null) ? "?" : (values_part + ",?");
+                                        }
+
+                                        OpenDatabase.DataBase.execSQL("INSERT INTO " + table + " VALUES(" + values_part + ")", cols);
+
+                                        if (++count % 10 == 0)
+                                        {
+                                            final int disp_count = count;
+                                            mHandle.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    tvLoadTips.setText("Complete the "+disp_count+" line");
+                                                }
+                                            });
+                                        }
+
+                                    }
+
+                                    OpenDatabase.DataBase.setTransactionSuccessful();
+
+                                    final int comp_count = count;
+                                    mHandle.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(MainActivity.this, getResources().getString(R.string.bulk_import_success).replace("%count%", comp_count+""), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                                } catch (IOException | SQLException e) {
+
+                                    mHandle.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(MainActivity.this, getResources().getString(R.string.bulk_import_fail) + "："+e.toString(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                                } finally {
+                                    try {
+                                        if(fis != null) fis.close();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    OpenDatabase.DataBase.endTransaction();
+                                    mHandle.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            loadDialog.cancel();
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                        }
+                                    });
+                                }
+
                             }
                         }).start();
 
