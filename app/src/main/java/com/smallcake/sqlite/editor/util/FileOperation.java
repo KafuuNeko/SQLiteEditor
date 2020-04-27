@@ -23,7 +23,6 @@ public class FileOperation {
 
     /**
      * 获取sd卡的绝对路径
-     *
      * @return String 如果sd卡存在，返回sd卡的绝对路径，否则返回null
      **/
     public static String getSDPath() {
