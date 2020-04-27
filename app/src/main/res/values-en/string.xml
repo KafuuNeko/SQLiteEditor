@@ -59,6 +59,11 @@
         <item>Cancel</item>
     </string-array>
 
+    <string-array name="import_operation">
+        <item>Bulk import via text</item>
+        <item>Bulk import through files</item>
+    </string-array>
+
     <string-array name="edit_table_data">
         <item>Edit</item>
         <item>Delete</item>

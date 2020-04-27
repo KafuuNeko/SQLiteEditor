@@ -12,7 +12,7 @@ public class FileOperation {
         //READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
         boolean check = (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-        if (check == false) {
+        if (!check) {
             ActivityCompat.requestPermissions(
                     (Activity) context,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},

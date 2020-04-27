@@ -392,37 +392,42 @@ public class MainActivity extends AppCompatActivity {
                 .setFileSelectorListener(new FileSelectorDialog.FileSelectorListener() {
                     @Override
                     public void SelectComplete(File file) {
-                        if (file.exists()) {
-                            Toast.makeText(MainActivity.this, R.string.file_creation_failed_1, Toast.LENGTH_SHORT).show();
-                        } else {
-                            try {
-                                if (file.getName().indexOf('.') == -1) {
-                                    file = new File(file.getPath() + ".db");
-                                }
-                                if (file.createNewFile()) {
-                                    final String tempDatabasePath = file.getPath();
-                                    Toast.makeText(MainActivity.this, R.string.file_creation_success, Toast.LENGTH_SHORT).show();
-                                    new AlertDialog.Builder(MainActivity.this)
-                                            .setMessage(R.string.whether_to_open_a_new_database)
-                                            .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    OpenDatabase.closeDatabase(MainActivity.this);
-                                                    OpenDatabase.openDatabase(MainActivity.this, tempDatabasePath);
-                                                }
-                                            })
-                                            .setNegativeButton(R.string.cancel, null)
-                                            .create().show();
-                                } else {
-                                    Toast.makeText(MainActivity.this, R.string.file_creation_failed_2, Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (Exception e) {
-                                Toast.makeText(MainActivity.this, getResources().getString(R.string.file_creation_failed_3).replace("%e", e.toString()), Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                        createDatabase(file);
                     }
                 }).build();
         if (dialog != null) dialog.show();
+    }
+
+    private void createDatabase(File file)
+    {
+        if (file.exists()) {
+            Toast.makeText(MainActivity.this, R.string.file_creation_failed_1, Toast.LENGTH_SHORT).show();
+        } else {
+            try {
+                if (file.getName().indexOf('.') == -1) {
+                    file = new File(file.getPath() + ".db");
+                }
+                if (file.createNewFile()) {
+                    final String tempDatabasePath = file.getPath();
+                    Toast.makeText(MainActivity.this, R.string.file_creation_success, Toast.LENGTH_SHORT).show();
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setMessage(R.string.whether_to_open_a_new_database)
+                            .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    OpenDatabase.closeDatabase(MainActivity.this);
+                                    OpenDatabase.openDatabase(MainActivity.this, tempDatabasePath);
+                                }
+                            })
+                            .setNegativeButton(R.string.cancel, null)
+                            .create().show();
+                } else {
+                    Toast.makeText(MainActivity.this, R.string.file_creation_failed_2, Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.file_creation_failed_3).replace("%e", e.toString()), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     /**
@@ -454,7 +459,22 @@ public class MainActivity extends AppCompatActivity {
         if (OpenDatabase.DB == null) {
             Toast.makeText(MainActivity.this, R.string.unopened_database_tip, Toast.LENGTH_SHORT).show();
         } else {
-            startActivity(new Intent(this, BatchImportActivity.class));
+            new AlertDialog.Builder(MainActivity.this)
+                    .setItems(R.array.import_operation, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which)
+                            {
+                                case 0:
+                                    startActivity(new Intent(MainActivity.this, BatchImportActivity.class));
+                                    break;
+
+                                case 1:
+                                    break;
+                            }
+                        }
+                    })
+                    .create().show();
         }
     }
 
@@ -487,7 +507,8 @@ public class MainActivity extends AppCompatActivity {
         query_name.setText(name);
         query_sql.setText(sql);
         //弹出第一个对话框，要求用户输入视图名称
-        new AlertDialog.Builder(this).setView(query_name)
+        new AlertDialog.Builder(this)
+                .setView(query_name)
                 .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -499,7 +520,8 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             //用户以输入视图名
                             //弹出第二个对话框，要求用户输入视图语句
-                            new AlertDialog.Builder(MainActivity.this).setView(query_sql)
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setView(query_sql)
                                     .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
@@ -513,7 +535,7 @@ public class MainActivity extends AppCompatActivity {
                                                 //用户输入完成，开始合成并执行语句
                                                 try {
                                                     OpenDatabase.DataBase.execSQL("CREATE VIEW " + query_name.getText().toString() + " AS " + query_sql.getText().toString());
-                                                    Toast.makeText(MainActivity.this, R.string.create_view_success, Toast.LENGTH_SHORT);
+                                                    Toast.makeText(MainActivity.this, R.string.create_view_success, Toast.LENGTH_SHORT).show();
                                                     LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(new Intent(OpenDatabase.BROADCAST_DATA_UPDATE));
                                                 } catch (Exception e) {
                                                     //执行语句异常，弹出异常提示，并等待用户点击确认后保留数据重新开始输入
@@ -537,4 +559,5 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle(R.string.please_enter_view_name)
                 .setNegativeButton(R.string.cancel, null).create().show();//输入视图名称对话框弹出
     }
+
 }

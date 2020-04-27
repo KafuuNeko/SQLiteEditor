@@ -57,6 +57,11 @@
         <item>取消操作</item>
     </string-array>
 
+    <string-array name="import_operation">
+        <item>通过文本批量导入</item>
+        <item>通过文件批量导入</item>
+    </string-array>
+
     <string-array name="edit_table_data">
         <item>编辑数据</item>
         <item>删除此行</item>
