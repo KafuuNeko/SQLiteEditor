@@ -520,14 +520,14 @@ public class MainActivity extends AppCompatActivity {
                         new AlertDialog.Builder(MainActivity.this)
                                 .setTitle(R.string.bulk_import_separator)
                                 .setView(et_separator)
-                                .setNegativeButton(R.string.bulk_import, new DialogInterface.OnClickListener() {
+                                .setPositiveButton(R.string.bulk_import, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         BatchImportActivity.SEPARATOR = et_separator.getText().toString();
                                         bulkImportFile(table, BatchImportActivity.SEPARATOR);
                                     }
                                 })
-                                .setPositiveButton(R.string.cancel, null)
+                                .setNegativeButton(R.string.cancel, null)
                                 .create().show();
                     }
                 })
