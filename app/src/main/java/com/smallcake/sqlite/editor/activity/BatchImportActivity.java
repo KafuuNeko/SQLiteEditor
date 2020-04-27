@@ -22,7 +22,8 @@ import com.smallcake.sqlite.editor.sqlite.OpenDatabase;
 import java.util.List;
 
 public class BatchImportActivity extends AppCompatActivity {
-    private static String mSaveImportData = "", mSaveSeparator = "-----";
+    private static String mSaveImportData = "";
+    public static String SEPARATOR = "-----";
 
     private Spinner mTable;
     private ImageButton mBtnImport;
@@ -56,7 +57,7 @@ public class BatchImportActivity extends AppCompatActivity {
         mEdSeparator = findViewById(R.id.mEdSeparator);
 
         mImportData.setText(mSaveImportData);
-        mEdSeparator.setText(mSaveSeparator);
+        mEdSeparator.setText(SEPARATOR);
 
         mImportData.addTextChangedListener(new TextWatcher() {
             @Override
@@ -88,7 +89,7 @@ public class BatchImportActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mSaveSeparator = mEdSeparator.getText().toString();
+                SEPARATOR = mEdSeparator.getText().toString();
             }
         });
 

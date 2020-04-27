@@ -20,12 +20,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int CheckPermissionRequestCode_Associated = 0x1;
     private static final int CheckPermissionRequestCode_OpenOrCloseDatabase = 0x2;
     private static final int CheckPermissionRequestCode_CreateDatabase = 0x3;
+    private static final int CheckPermissionRequestCode_BulkImport = 0x4;
 
     private String mFilePath = null;
 
@@ -106,6 +110,10 @@ public class MainActivity extends AppCompatActivity {
 
                 case CheckPermissionRequestCode_CreateDatabase:
                     createDatabase();
+                    break;
+
+                case CheckPermissionRequestCode_BulkImport:
+                    bulkImportFile();
                     break;
             }
 
@@ -470,12 +478,82 @@ public class MainActivity extends AppCompatActivity {
                                     break;
 
                                 case 1:
+                                    bulkImportFile();
                                     break;
                             }
                         }
                     })
                     .create().show();
         }
+    }
+
+    private void bulkImportFile()
+    {
+        final List<String> tables = OpenDatabase.getTables();
+        if (tables == null && tables.size() == 0)
+        {
+            Toast.makeText(this, R.string.tables_is_null, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        final CharSequence[] item_list = new CharSequence[tables.size()];
+        for (int i = 0; i < tables.size(); ++i)
+        {
+            item_list[i] = tables.get(i);
+        }
+
+        new AlertDialog.Builder(MainActivity.this)
+                .setItems(item_list, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final EditText et_separator = new EditText(MainActivity.this);
+                        et_separator.setText(BatchImportActivity.SEPARATOR);
+
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle(R.string.bulk_import_separator)
+                                .setView(et_separator)
+                                .setNegativeButton(R.string.bulk_import, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        BatchImportActivity.SEPARATOR = et_separator.getText().toString();
+                                        bulkImportFile(tables.get(which), BatchImportActivity.SEPARATOR);
+                                    }
+                                })
+                                .setPositiveButton(R.string.cancel, null)
+                                .create().show();
+                    }
+                })
+                .setTitle(R.string.table)
+                .create().show();
+
+    }
+
+    private void bulkImportFile(final String table, final String separator)
+    {
+        FileSelectorDialog dialog = new FileSelectorDialog.Builder(this, FileOperation.getSDPath(), CheckPermissionRequestCode_OpenOrCloseDatabase)
+                .setTitle(getResources().getString(R.string.bulk_import))
+                .setSelectorMode(FileSelectorDialog.Builder.MODE_OPEN_FILE)
+                .setFileSelectorListener(new FileSelectorDialog.FileSelectorListener() {
+                    @Override
+                    public void SelectComplete(File file) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_load,  null);
+                                AlertDialog loadDialog = new AlertDialog.Builder(MainActivity.this)
+                                        .setView(view)
+                                        .setCancelable(false)
+                                        .create();
+                                loadDialog.show();
+
+                                loadDialog.cancel();
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                        }).start();
+
+                    }
+                }).build();
+        if (dialog != null) dialog.show();
     }
 
     /**
