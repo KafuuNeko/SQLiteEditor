@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cc.kafuu.sqlite.editor">
+    package="com.kafuuneko.sqliteeditor">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="cc.kafuu.sqlite.editor.activity.MainActivity"
+        <activity android:name="com.kafuuneko.sqliteeditor.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTop">
             <intent-filter>
@@ -28,23 +28,23 @@
 
         </activity>
 
-        <activity android:name="cc.kafuu.sqlite.editor.activity.ExecSqlActivity"
+        <activity android:name="com.kafuuneko.sqliteeditor.activity.ExecSqlActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
 
-        <activity android:name="cc.kafuu.sqlite.editor.activity.TableDataEdit"
+        <activity android:name="com.kafuuneko.sqliteeditor.activity.TableDataEdit"
             android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
 
-        <activity android:name="cc.kafuu.sqlite.editor.activity.QuerySqlActivity"
+        <activity android:name="com.kafuuneko.sqliteeditor.activity.QuerySqlActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
 
-        <activity android:name="cc.kafuu.sqlite.editor.activity.ViewQueryActivity"
+        <activity android:name="com.kafuuneko.sqliteeditor.activity.ViewQueryActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
 
-        <activity android:name="cc.kafuu.sqlite.editor.activity.BatchImportActivity"
+        <activity android:name="com.kafuuneko.sqliteeditor.activity.BatchImportActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
 

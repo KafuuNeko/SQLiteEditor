@@ -27,8 +27,8 @@ import java.util.List;
 /**
  * 说明 可锁定首行和首列的表格视图
  * 作者 郭翰林
- * 优化 短毛猫
- * 修复 短毛猫
+ * 优化 KafuuNeko
+ * 修复 KafuuNeko
  * 创建时间 2017/3/29.
  */
 
