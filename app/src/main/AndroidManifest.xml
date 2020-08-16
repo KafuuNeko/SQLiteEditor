@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.smallcake.sqlite.editor">
+    package="cc.kafuu.sqlite.editor">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity"
+        <activity android:name="cc.kafuu.sqlite.editor.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTop">
             <intent-filter>
@@ -28,23 +28,23 @@
 
         </activity>
 
-        <activity android:name=".activity.ExecSqlActivity"
+        <activity android:name="cc.kafuu.sqlite.editor.activity.ExecSqlActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
 
-        <activity android:name=".activity.TableDataEdit"
+        <activity android:name="cc.kafuu.sqlite.editor.activity.TableDataEdit"
             android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
 
-        <activity android:name=".activity.QuerySqlActivity"
+        <activity android:name="cc.kafuu.sqlite.editor.activity.QuerySqlActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
 
-        <activity android:name=".activity.ViewQueryActivity"
+        <activity android:name="cc.kafuu.sqlite.editor.activity.ViewQueryActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
 
-        <activity android:name=".activity.BatchImportActivity"
+        <activity android:name="cc.kafuu.sqlite.editor.activity.BatchImportActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
 
